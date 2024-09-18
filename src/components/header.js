@@ -10,6 +10,10 @@ function header() {
           <li>Login</li>
         </ul>
       </nav>
+      <body className="bheader">
+        <h1>Header</h1>
+        <p>My supercool header</p>
+      </body>
     </header>
   );
 }
