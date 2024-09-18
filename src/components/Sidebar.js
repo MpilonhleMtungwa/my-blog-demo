@@ -1,4 +1,5 @@
-import ".styles/sidebar.css";
+import "../styles/sidebar.css";
+import PostCard from "./PostCard";
 
 function Sidebar() {
   return (

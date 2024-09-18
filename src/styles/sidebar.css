@@ -1,0 +1,11 @@
+.sidebar {
+  width: 25%;
+  padding: 20px;
+  background-color: #eee;
+}
+
+.popular-posts,
+.create-post,
+.search-posts {
+  margin-bottom: 20px;
+}
