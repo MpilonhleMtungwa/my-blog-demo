@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
 import PopularPosts from "./components/PopularPosts";
 import PostCard from "./components/PostCard";
+import BlogList from "./components/BlogList";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header />
       <PopularPosts />
       <div className="content">
-        <PostCard />
+        <BlogList />
         <MainContent />
       </div>
     </div>
