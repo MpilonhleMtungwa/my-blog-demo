@@ -1,0 +1,62 @@
+.blogContainer {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Title Styling */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Author Information Styling */
+.authorInfo {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.author {
+  font-style: italic;
+}
+
+.date {
+  font-size: 14px;
+  color: #999;
+}
+
+/* Blog Content Styling */
+.blogContent {
+  line-height: 1.8;
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* Interactive Icons Styling */
+.interactions {
+  display: flex;
+  gap: 15px;
+  font-size: 24px;
+  color: #555;
+}
+
+.icon {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effect for Icons */
+.icon:hover {
+  color: #007bff;
+  transform: scale(1.1);
+}
