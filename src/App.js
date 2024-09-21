@@ -1,4 +1,5 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
@@ -9,6 +10,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import BlogDetail from "./components/BlogDetail";
 
+/*
 const blogContent = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ligula a justo tempor tempor. 
   In fringilla quam eu massa iaculis elementum. Donec vitae turpis volutpat, blandit magna non, tristique erat. 
@@ -17,18 +19,17 @@ const blogContent = `
   In finibus tellus ac varius lorem. Integer efficitur augue lorem, non aliquet nisi ornare ac. 
   Donec consectetur et purus eget suscipit.
 `;
-
+*/
 function App() {
   return (
     <div className="app">
-      <BlogDetail
-        title="The Journey of Web Development"
-        author="John Doe"
-        date="20 September 2024"
-        content={blogContent}
-      />
-
-      <div className="content"></div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+        </Routes>
+      </Router>
     </div>
   );
 }

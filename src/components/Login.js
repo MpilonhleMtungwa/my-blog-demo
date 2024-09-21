@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/login.css";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Send login data to the backend (add API call here)
+    onLogin(email, password);
+  };
+
   return (
     <div className="login-container">
       <div className="login-card">
@@ -11,14 +21,25 @@ const Login = () => {
           className="login-image"
         />
         <h2>Login</h2>
-        <form>
+        <form onSumbit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email address</label>
-            <input type="email" id="email" required />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              id="email"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" required />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
           <div className="options">
             <label>
@@ -32,7 +53,7 @@ const Login = () => {
             LOGIN
           </button>
           <p className="register-link">
-            Don't have an account? <a href="#">Register</a>
+            Don't have an account? <Link to="/register">Register here</Link>
           </p>
         </form>
       </div>
