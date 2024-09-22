@@ -2,6 +2,68 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 
 const BlogList = () => {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch("/api/blogs"); // Now pointing to your backend API
+        if (!response.ok) {
+          throw new Error("Failed to fetch blog posts");
+        }
+        const data = await response.json();
+        setBlogPosts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="blog-list">
+      {blogPosts.map((post, index) => (
+        <PostCard
+          key={index}
+          title={post.title}
+          author={post.author}
+          date={post.createdAt}
+          description={post.description}
+          image={post.image} // Assuming you store image URLs in your blog post data
+        />
+      ))}
+    </div>
+  );
+};
+
+/*
+  return (
+    <div className="blog-list">
+      {blogPosts.map((post, index) => (
+        <PostCard
+          key={index}
+          title={post.title}
+          author={post.author}
+          date={post.createdAt} // Assuming `createdAt` is in your MongoDB schema
+          description={post.content} // Assuming `content` is the field for blog content
+          image={post.imageUrl} // Assuming `imageUrl` is where you store image links
+          tags={post.tags || []} // Assuming `tags` is an array
+        />
+      ))}
+    </div>
+  );
+};
+*/
+/*
+const BlogList = () => {
   const [blogPosts, setBlogPosts] = useState([]); // State to store API data
   const [loading, setLoading] = useState(true); // State to show loading indicator
   const [error, setError] = useState(null); // State to handle errors
@@ -49,7 +111,7 @@ const BlogList = () => {
     </div>
   );
 };
-
+*/
 /*
 const BlogList = () => {
   const [blogPosts, setBlogPosts] = useState([]); // State to store API data

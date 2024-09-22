@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+const dotenv = require("dotenv");
+require("dotenv").config();
 const blogSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },

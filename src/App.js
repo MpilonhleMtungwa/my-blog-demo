@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import Sidebar from "./components/Sidebar";
@@ -9,6 +10,8 @@ import BlogList from "./components/BlogList";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import BlogDetail from "./components/BlogDetail";
+import ProtectedRoute from "./components/ProtectedRoute";
+import CreatePost from "./components/CreatePost";
 
 /*
 const blogContent = `
@@ -25,9 +28,21 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route path="/register" element={<Register />} />{" "}
+          {/* Register page */}
+          <Route path="/login" element={<Login />} /> {/* Login page */}
+          <Route path="/blogs" element={<BlogList />} /> {/* List of blogs */}
+          <Route path="/blogs/:id" element={<BlogDetail />} />{" "}
+          {/* Blog details */}
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <CreatePost />
+              </ProtectedRoute>
+            }
+          />{" "}
+          {/* Only accessible if logged in */}
         </Routes>
       </Router>
     </div>

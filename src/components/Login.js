@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Send login data to the backend (add API call here)
-    onLogin(email, password);
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
+      const { token } = res.data;
+      localStorage.setItem("token", token); // Save token in localStorage
+      setToken(token); // Set token in state
+    } catch (err) {
+      setError("Invalid credentials");
+    }
   };
 
   return (

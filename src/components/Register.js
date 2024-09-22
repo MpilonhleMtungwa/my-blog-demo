@@ -1,16 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/register.css";
+import axios from "axios";
 
-const Register = ({ onRegister }) => {
+const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Send registration data to backend (add API call here)
-    onRegister(name, email, password);
+    try {
+      await axios.post("http://localhost:5000/api/auth/register", {
+        name,
+        email,
+        password,
+      });
+      setSuccess("Registration successful! You can now log in.");
+      setError("");
+    } catch (err) {
+      setError("Error during registration");
+    }
   };
   return (
     <div className="register-container">
