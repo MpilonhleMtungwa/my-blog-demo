@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
