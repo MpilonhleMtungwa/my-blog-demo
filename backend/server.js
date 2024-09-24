@@ -1,3 +1,4 @@
+/*
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const uri =
@@ -32,15 +33,16 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
+*/
 /*
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const uri = process.env.MONGO_URI;
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 // Load environment variables from .env file
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -48,20 +50,103 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. Successfully connected to MongoDB!");
+  } finally {
+    await client.close();
+  }
+}
+ 
+
 // MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
 */
+/*
+const dotenv = require("dotenv");
+dotenv.config({ path: "../.env" }); // Adjust path if needed
+
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const express = require("express");
+const cors = require("cors"); // Import CORS
+
+const authRoutes = require("./routes/authRoutes");
+
+const uri = process.env.MONGO_URI; // Use the env variable
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(express.json());
+app.use(cors({ origin: "http://localhost:3000" })); // Enable CORS for all routes
+app.use("/api/auth", authRoutes);
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. Successfully connected to MongoDB!");
+  } finally {
+    await client.close();
+  }
+}
+
+run().catch(console.dir);
+
 // Routes
-app.use("/api/blogs", require("../src/routes/blogRoutes")); // Placeholder route
-app.use("/api/auth", require("../src/routes/authRoutes")); // Placeholder route
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+*/
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
+
+const authRoutes = require("./routes/authRoutes");
+const blogRoutes = require("./routes/blogRoutes");
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use("/api/auth", authRoutes);
+
+// Use blog routes
+app.use("/api/blogs", blogRoutes);
+
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error("MongoDB connection failed:", error.message));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

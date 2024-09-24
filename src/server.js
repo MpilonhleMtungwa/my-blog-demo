@@ -21,8 +21,8 @@ mongoose
   .catch((err) => console.log(err));
 
 // Routes
-app.use("/api/blogs", require("../src/routes/blogRoutes")); // Placeholder route
-app.use("/api/auth", require("../src/routes/authRoutes")); // Placeholder route
+app.use("/api/blogs", require("../backend/routes/blogRoutes")); // Placeholder route
+app.use("/api/auth", require("../backend/routes/authRoutes")); // Placeholder route
 
 // Start server
 app.listen(PORT, () => {

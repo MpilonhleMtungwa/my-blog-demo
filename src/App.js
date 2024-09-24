@@ -31,7 +31,7 @@ function App() {
           <Route path="/register" element={<Register />} />{" "}
           {/* Register page */}
           <Route path="/login" element={<Login />} /> {/* Login page */}
-          <Route path="/blogs" element={<BlogList />} /> {/* List of blogs */}
+          <Route path="/header" element={<Header />} /> {/* List of blogs */}
           <Route path="/blogs/:id" element={<BlogDetail />} />{" "}
           {/* Blog details */}
           <Route

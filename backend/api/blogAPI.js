@@ -1,5 +1,5 @@
 const express = require("express");
-const Post = require("./models/Post");
+const Post = require("../models/Post");
 const { verifyToken } = require("./AuthAPI");
 const router = express.Router();
 
