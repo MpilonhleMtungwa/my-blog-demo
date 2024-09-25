@@ -1,5 +1,5 @@
 import React from "react";
-import BlogList from "./BlogList";
+import BlogList from "../components/BlogList";
 import "../styles/postCard.css";
 
 const PostCard = ({

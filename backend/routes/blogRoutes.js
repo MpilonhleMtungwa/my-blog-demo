@@ -19,38 +19,39 @@ router.delete("/:id", authenticate, deleteBlog); // Delete blog
 
 module.exports = router;
 */
+// routes/blogRoutes.js
 const express = require("express");
+const router = express.Router();
 const Blog = require("../models/Blog");
 
-const router = express.Router();
-
-// Add a new blog post
-router.post("/add", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const { title, content, author } = req.body;
-    const newBlog = new Blog({
-      title,
-      content,
-      author,
-    });
-    await newBlog.save();
-    res.status(201).json({ message: "Blog post created successfully!" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to create blog post", error: error.message });
+    const blogs = await Blog.find();
+    res.status(200).json(blogs);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching blogs" });
   }
 });
 
-// Get all blog posts
-router.get("/all", async (req, res) => {
+// Fetch all blogs
+router.get("/blogs", async (req, res) => {
   try {
     const blogs = await Blog.find();
-    res.json(blogs);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch blog posts", error: error.message });
+    res.status(200).json(blogs);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching blogs" });
+  }
+});
+
+// Create a new blog post
+router.post("/add", async (req, res) => {
+  try {
+    const { title, content, author, image } = req.body;
+    const newBlog = new Blog({ title, content, author, image });
+    await newBlog.save();
+    res.status(201).json({ message: "Blog created successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to create blog post" });
   }
 });
 

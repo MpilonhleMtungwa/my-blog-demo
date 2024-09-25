@@ -1,5 +1,6 @@
 const express = require("express");
 const Post = require("../models/Post");
+const Blog = require("../models/Blog");
 const { verifyToken } = require("./AuthAPI");
 const router = express.Router();
 
@@ -18,6 +19,15 @@ router.post("/", verifyToken, async (req, res) => {
     res.status(201).json(post);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/blogs", async (req, res) => {
+  try {
+    const blogs = await Blog.find(); // Fetch all blogs
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching blogs" });
   }
 });
 

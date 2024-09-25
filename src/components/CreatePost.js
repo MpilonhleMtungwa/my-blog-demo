@@ -6,23 +6,23 @@ import AuthContext from "../context/authContext";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState(""); // Define image state
+  const [author, setAuthor] = useState(""); // Define author state
   const [error, setError] = useState("");
   const { token } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        "http://localhost:5000/api/blogs",
-        { title, content },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setTitle("");
-      setContent("");
+      await axios.post("http://localhost:5000/api/blogs/add", {
+        title,
+        content,
+        author,
+        image, // Pass the image URL
+      });
+      console.log("Blog post created successfully");
     } catch (err) {
-      setError("Failed to create post");
+      console.error("Error creating blog post", err);
     }
   };
 
@@ -30,6 +30,7 @@ const CreatePost = () => {
     <form onSubmit={handleSubmit}>
       <h2>Create Post</h2>
       {error && <p>{error}</p>}
+
       <input
         type="text"
         placeholder="Title"
@@ -37,12 +38,30 @@ const CreatePost = () => {
         onChange={(e) => setTitle(e.target.value)}
         required
       />
+
       <textarea
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
       />
+
+      {/* Input for image URL */}
+      <input
+        type="text"
+        placeholder="Image URL"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
+      />
+
+      {/* Input for author */}
+      <input
+        type="text"
+        placeholder="Author"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+
       <button type="submit">Create Post</button>
     </form>
   );

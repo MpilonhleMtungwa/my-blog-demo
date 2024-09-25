@@ -1,45 +1,46 @@
-import React, { useEffect, useState } from "react";
-import PostCard from "./PostCard";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import PostCard from "./PostCard"; // Import PostCard component
 
 const BlogList = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchBlogPosts = async () => {
+    const fetchBlogs = async () => {
       try {
-        const response = await fetch("/api/blogs"); // Now pointing to your backend API
-        if (!response.ok) {
-          throw new Error("Failed to fetch blog posts");
-        }
-        const data = await response.json();
-        setBlogPosts(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        const response = await axios.get("http://localhost:5000/api/blogs");
+        setBlogs(response.data);
+      } catch (err) {
+        setError("Error fetching blogs");
       }
     };
 
-    fetchBlogPosts();
+    fetchBlogs();
   }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="blog-list">
-      {blogPosts.map((post, index) => (
-        <PostCard
-          key={index}
-          title={post.title}
-          author={post.author}
-          date={post.createdAt}
-          description={post.description}
-          image={post.image} // Assuming you store image URLs in your blog post data
-        />
-      ))}
+      <h2>Blog Posts</h2>
+      {error && <p>{error}</p>}
+      <div className="blog-cards">
+        {blogs.length > 0 ? (
+          blogs.map((blog) => (
+            <PostCard
+              key={blog._id}
+              title={blog.title}
+              author={blog.author}
+              date={blog.createdAt}
+              description={blog.content}
+              image={blog.image}
+              tags={blog.tags} // Assuming tags are available
+              site={{ url: `/blogs/${blog._id}` }} // Assuming you want to link to a blog details page
+            />
+          ))
+        ) : (
+          <p>No blogs available</p>
+        )}
+      </div>
     </div>
   );
 };
