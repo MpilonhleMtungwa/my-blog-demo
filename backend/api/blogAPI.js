@@ -5,14 +5,16 @@ const { verifyToken } = require("./AuthAPI");
 const router = express.Router();
 
 // Create Post (Admin or Author)
-router.post("/", verifyToken, async (req, res) => {
-  const { title, content } = req.body;
+router.post("/add", verifyToken, async (req, res) => {
+  const { title, content, author, image, description } = req.body;
 
   try {
     const newPost = new Post({
       title,
       content,
-      author: req.user.id,
+      author,
+      image,
+      description,
     });
 
     const post = await newPost.save();

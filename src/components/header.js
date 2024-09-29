@@ -1,21 +1,15 @@
-import "../styles/header.css";
+import React from "react";
+import "../styles/header.css"; // Import your CSS for styling
+import myImage from "../pictures/headerpic.jpg";
 
-function header() {
+const Header = () => {
   return (
-    <header className="header">
-      <nav>
-        <ul>
-          <li>Home</li>
-          <li>Posts</li>
-          <li>Login</li>
-        </ul>
-      </nav>
-      <body className="bheader">
-        <h1>Header</h1>
-        <p>My supercool header</p>
-      </body>
-    </header>
+    <div className="header-container">
+      <div className="header-image-wrapper">
+        <img src={myImage} alt="header" className="header-image" />
+      </div>
+    </div>
   );
-}
+};
 
-export default header;
+export default Header;

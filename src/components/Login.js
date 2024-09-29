@@ -11,8 +11,9 @@ const Login = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -22,62 +23,59 @@ const Login = () => {
         }
       );
 
-      // Handle successful login
-      setSuccess(response.data.message);
-      setError("");
-
-      // Optionally, save token to localStorage
+      // Save the token to localStorage or state
       localStorage.setItem("token", response.data.token);
 
-      navigate("/bloglist");
-    } catch (err) {
-      // Handle login failure
-      setError("Login failed. Please check your credentials.");
-      setSuccess("");
+      // Redirect to create post page
+      navigate("/createpost"); // useNavigate() hook from react-router-dom
+    } catch (error) {
+      console.error("Login error", error);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-btn">
-          Login
-        </button>
-        {/* Display error or success message */}
-        {error && <p className="error-msg">{error}</p>}
-        {success && <p className="success-msg">{success}</p>}
-        <p className="register-link">
-          Don't have an account? <Link to="/register">Register here</Link>
-        </p>
-        <footer>
-          <p>Copyright © 2024. All rights reserved.</p>
-          <div className="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Google</a>
-            <a href="#">LinkedIn</a>
+    <div className="form-container">
+      <div className="form-wrapper">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        </footer>
-      </form>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-btn">
+            Login
+          </button>
+          {/* Display error or success message */}
+          {error && <p className="error-msg">{error}</p>}
+          {success && <p className="success-msg">{success}</p>}
+          <p className="register-link">
+            Don't have an account? <Link to="/register">Register here</Link>
+          </p>
+          <footer>
+            <p>Copyright © 2024. All rights reserved.</p>
+            <div className="social-icons">
+              <a href="#">Facebook</a>
+              <a href="#">Twitter</a>
+              <a href="#">Google</a>
+              <a href="#">LinkedIn</a>
+            </div>
+          </footer>
+        </form>
+      </div>
     </div>
   );
 };

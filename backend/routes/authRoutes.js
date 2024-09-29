@@ -3,7 +3,109 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const auth = require("../middleware/authMiddleware");
 
+router.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    // Check if the user already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
+
+    // Create new user
+    user = new User({
+      name,
+      email,
+      password,
+    });
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    // Save user to the database
+    await user.save();
+
+    // Create and sign the token
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }, // Token expires in 1 hour
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if the user exists
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    // Create and sign the token
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/me", auth, async (req, res) => {
+  try {
+    // req.user is set in the auth middleware after verifying the token
+    const user = await User.findById(req.user.id).select("-password"); // Exclude password
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+module.exports = router;
+
+/*
 // Register route
 router.post("/register", async (req, res) => {
   try {
@@ -25,6 +127,7 @@ router.post("/register", async (req, res) => {
       .json({ message: "Registration failed", error: error.message });
   }
 });
+
 // Login Route
 router.post("/login", async (req, res) => {
   try {
@@ -60,17 +163,20 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error during login." });
   }
 });
+router.get("/me", auth, async (req, res) => {
+  try {
+    // req.user is set in the auth middleware after verifying the token
+    const user = await User.findById(req.user.id).select("-password"); // Exclude password
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
 
-/*
-const express = require("express");
-const { registerUser, loginUser } = require("../controllers/authController");
-const router = express.Router();
-
-// Auth routes
-router.post("/register", registerUser); // Register a new user
-router.post("/login", loginUser); // Login a user
-
-module.exports = router;
 */

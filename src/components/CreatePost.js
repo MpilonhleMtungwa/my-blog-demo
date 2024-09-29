@@ -1,6 +1,7 @@
 import "../styles/createPost.css";
 import React, { useState, useContext } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import AuthContext from "../context/authContext";
 
 const CreatePost = () => {
@@ -8,21 +9,33 @@ const CreatePost = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(""); // Define image state
   const [author, setAuthor] = useState(""); // Define author state
+  const [description, setDescription] = useState(""); // Define description state
+  const [message, setMessage] = useState(""); // Define a state for success/error message
   const [error, setError] = useState("");
   const { token } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/blogs/add", {
-        title,
-        content,
-        author,
-        image, // Pass the image URL
-      });
-      console.log("Blog post created successfully");
+      await axios.post(
+        "http://localhost:5000/api/blogs/add",
+        {
+          title,
+          content,
+          author,
+          image, // Pass the image URL
+          description, // Pass the description
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request headers
+          },
+        }
+      );
+      setMessage("Blog post created successfully");
     } catch (err) {
       console.error("Error creating blog post", err);
+      setMessage("Failed to create blog post");
     }
   };
 
@@ -36,6 +49,13 @@ const CreatePost = () => {
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         required
       />
 

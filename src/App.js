@@ -2,6 +2,7 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/header";
+import Navbar from "./components/navbar";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
 import PopularPosts from "./components/PopularPosts";
@@ -12,6 +13,7 @@ import Register from "./components/Register";
 import BlogDetail from "./components/BlogDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./components/CreatePost";
+import PrivateRoute from "./components/PrivateRoute";
 
 /*
 const blogContent = `
@@ -23,16 +25,18 @@ const blogContent = `
   Donec consectetur et purus eget suscipit.
 `;
 */
+/*
 function App() {
   return (
-    <div className="app">
-      <Router>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Header />
         <Routes>
           <Route path="/register" element={<Register />} />{" "}
-          {/* Register page */}
-          <Route path="/login" element={<Login />} /> {/* Login page */}
-          <Route path="/header" element={<Header />} /> {/* List of blogs */}
-          <Route path="/blogs" element={<BlogList />} /> {/* Blog details */}
+         
+          <Route path="/login" element={<Login />} /> 
+          <Route path="/blogs" element={<BlogList />} /> 
           <Route
             path="/create"
             element={
@@ -41,10 +45,38 @@ function App() {
               </ProtectedRoute>
             }
           />{" "}
-          {/* Only accessible if logged in */}
+          
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
+export default App;
+*/
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Header />
+      <Routes>
+        <Route path="/" element={<BlogList />} />
+        <Route path="/bloglist" element={<BlogList />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/createpost"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/register" element={<Register />} />
+        {/* Add more routes as necessary */}
+      </Routes>
+    </Router>
+  );
+}
+
 export default App;

@@ -1,13 +1,15 @@
-const Blog = require("../models/blog");
+const Blog = require("../models/Blog");
 
 // Create new blog post
 exports.createBlog = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, author, description, image } = req.body;
     const newBlog = new Blog({
       title,
       content,
-      author: req.user.id, // Ensure the user is authenticated
+      author,
+      description,
+      image, // Ensure the user is authenticated
     });
     await newBlog.save();
     res.json(newBlog);

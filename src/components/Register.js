@@ -208,7 +208,7 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
+    <div className="form-container">
       <div className="register-card">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>

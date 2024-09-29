@@ -27,14 +27,15 @@ const BlogList = () => {
         {blogs.length > 0 ? (
           blogs.map((blog) => (
             <PostCard
-              key={blog._id}
+              key={blog._id} // Use blog._id as the key
+              id={blog._id} // Pass the blog's _id to the BlogCard component
               title={blog.title}
-              author={blog.author}
-              date={blog.createdAt}
-              description={blog.content}
               image={blog.image}
-              tags={blog.tags} // Assuming tags are available
-              site={{ url: `/blogs/${blog._id}` }} // Assuming you want to link to a blog details page
+              author={blog.author}
+              authorImage={blog.authorImage}
+              date={blog.date}
+              description={blog.description}
+              tags={blog.tags}
             />
           ))
         ) : (

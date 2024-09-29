@@ -126,12 +126,19 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const CommentsRoutes = require("./routes/CommentsRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or your frontend domain
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
 app.use(express.json());
 
 // Routes
@@ -139,6 +146,9 @@ app.use("/api/auth", authRoutes);
 
 // Use blog routes
 app.use("/api/blogs", blogRoutes);
+
+//use comments
+app.use("/api/comments", CommentsRoutes);
 
 // MongoDB Connection
 mongoose

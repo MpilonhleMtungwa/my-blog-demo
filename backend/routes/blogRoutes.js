@@ -33,6 +33,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ msg: "Blog not found" });
+    }
+
+    res.json(blog);
+  } catch (err) {
+    console.error(err.message);
+
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Blog not found" });
+    }
+
+    res.status(500).send("Server error");
+  }
+});
+
 // Fetch all blogs
 router.get("/blogs", async (req, res) => {
   try {
@@ -45,14 +65,26 @@ router.get("/blogs", async (req, res) => {
 
 // Create a new blog post
 router.post("/add", async (req, res) => {
+  const { title, content, author, image, description } = req.body;
+
+  if (!title || !content || !author || !description) {
+    return res.status(400).json({ msg: "All fields are required" });
+  }
+
   try {
-    const { title, content, author, image } = req.body;
-    const newBlog = new Blog({ title, content, author, image });
-    await newBlog.save();
-    res.status(201).json({ message: "Blog created successfully!" });
+    const newBlog = new Blog({
+      title,
+      content,
+      author,
+      image,
+      description,
+    });
+
+    const blog = await newBlog.save();
+    res.status(201).json(blog);
   } catch (err) {
-    res.status(500).json({ message: "Failed to create blog post" });
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 });
-
 module.exports = router;

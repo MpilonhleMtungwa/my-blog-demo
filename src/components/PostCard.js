@@ -1,16 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import BlogList from "../components/BlogList";
 import "../styles/postCard.css";
 
-const PostCard = ({
+const BlogCard = ({
+  id,
   title,
+  image,
   author,
+  authorImage,
   date,
   description,
-  image,
-  authorImage,
   tags,
-  site,
 }) => {
   return (
     <div className="blog-card">
@@ -18,18 +19,20 @@ const PostCard = ({
       <div className="content">
         <h2>{title}</h2>
         <div className="author-info">
-          {authorImage && <img src={authorImage} alt={author} />}{" "}
-          {/* Conditionally render author image */}
+          {authorImage && <img src={authorImage} alt={author} />}
           <p>
             by <strong>{author || "Unknown Author"}</strong> on{" "}
-            {new Date(date).toLocaleDateString()} {/* Format date */}
+            {new Date(date).toLocaleDateString()}
           </p>
         </div>
         <p>{description}</p>
-        <a href={site.url} target="_blank" className="read-more">
-          Read article →
-        </a>
-        {tags && tags.length > 0 /* Conditionally render tags */ && (
+
+        {/* Use Link for navigation to blog detail page */}
+        <Link to={`/blogs/${id}`} className="read-more">
+          Read More →
+        </Link>
+
+        {tags && tags.length > 0 && (
           <div className="tags">
             {tags.map((tag, index) => (
               <span key={index}>{tag}</span>
@@ -72,4 +75,4 @@ function PostCard({ title }) {
   );
 }
 */
-export default PostCard;
+export default BlogCard;

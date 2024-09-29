@@ -12,11 +12,17 @@ const blogSchema = new mongoose.Schema({
   },
   author: {
     type: String,
+
     required: true,
   },
   image: {
     type: String, // URL to the image
     required: false,
+  },
+  description: {
+    // New field for the blog description
+    type: String,
+    required: true,
   },
   date: {
     type: Date,
@@ -24,5 +30,5 @@ const blogSchema = new mongoose.Schema({
   },
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog = mongoose.model("Blog", blogSchema);
 module.exports = Blog;
