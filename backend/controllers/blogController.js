@@ -18,7 +18,9 @@ exports.createBlog = async (req, res) => {
       content,
       author: req.user._id, // Author is the logged-in user
       description,
-      image,
+      image:
+        image ||
+        "https://images.pexels.com/photos/265667/pexels-photo-265667.jpeg",
     });
 
     await newBlog.save();
@@ -132,12 +134,17 @@ exports.deleteBlog = async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
 
+    // Check if req.user is populated correctly
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: "Unauthorized, no user found" });
+    }
+
     // Ensure only the author can delete the blog
-    if (blog.author.toString() !== req.user._id) {
+    if (blog.author.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    await blog.remove();
+    await blog.deleteOne();
     res.status(200).json({ message: "Blog deleted successfully" });
   } catch (err) {
     console.error(err);

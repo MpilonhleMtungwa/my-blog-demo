@@ -38,6 +38,35 @@ const MyBlogs = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+  const handleDelete = async (blogId) => {
+    try {
+      if (!token) {
+        throw new Error("No token found. Please log in.");
+      }
+
+      const response = await fetch(
+        `http://localhost:5000/api/blogs/${blogId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error deleting blog");
+      }
+
+      const data = await response.json();
+      console.log("Blog deleted successfully", data);
+      // Refresh the blog list or update UI here
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
+  };
+
   return (
     <div className={styles.myBlogsContainer}>
       <h1>My Blogs</h1>
@@ -67,20 +96,6 @@ const MyBlogs = () => {
       )}
     </div>
   );
-};
-
-const handleDelete = async (blogId) => {
-  try {
-    await axios.delete(`http://localhost:5000/api/blogs/${blogId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    // Refresh the blog list or remove the deleted blog from the state
-    setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
-  } catch (err) {
-    console.error("Error deleting blog:", err);
-  }
 };
 
 export default MyBlogs;

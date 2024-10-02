@@ -31,7 +31,7 @@ router.get("/", blogController.getBlogs);
 router.get("/myblogs", protect, blogController.getMyBlogs);
 router.get("/:id", blogController.getBlogById);
 router.put("/:id", protect, blogController.updateBlog);
-router.delete("/:id", blogController.deleteBlog);
+router.delete("/:id", protect, blogController.deleteBlog);
 
 // Fetch all blogs
 /*
