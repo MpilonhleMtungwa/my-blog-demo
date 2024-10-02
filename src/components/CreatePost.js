@@ -1,47 +1,50 @@
 import "../styles/createPost.css";
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import AuthContext from "../context/authContext";
+import AuthContext from "../context/authContext"; // Assuming you have AuthContext for auth management
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState(""); // Define image state
-  const [author, setAuthor] = useState(""); // Define author state
-  const [description, setDescription] = useState(""); // Define description state
-  const [message, setMessage] = useState(""); // Define a state for success/error message
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext); // Assuming you're using AuthContext to manage auth
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleCreatePost = async (event) => {
+    event.preventDefault(); // Prevents the form from submitting and reloading the page
+
     try {
-      await axios.post(
-        "http://localhost:5000/api/blogs/add",
+      const response = await axios.post(
+        "http://localhost:5000/api/blogs/create",
         {
           title,
           content,
-          author,
-          image, // Pass the image URL
-          description, // Pass the description
+          image,
+          description,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the request headers
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token in request headers
           },
         }
       );
-      setMessage("Blog post created successfully");
-    } catch (err) {
-      console.error("Error creating blog post", err);
-      setMessage("Failed to create blog post");
+
+      if (response.status === 201) {
+        console.log("Blog post created successfully:", response.data);
+        setMessage("Blog post created successfully");
+      }
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      setError("Error creating blog post");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleCreatePost}>
       <h2>Create Post</h2>
+      {message && <p>{message}</p>}
       {error && <p>{error}</p>}
 
       <input
@@ -66,20 +69,11 @@ const CreatePost = () => {
         required
       />
 
-      {/* Input for image URL */}
       <input
         type="text"
         placeholder="Image URL"
         value={image}
         onChange={(e) => setImage(e.target.value)}
-      />
-
-      {/* Input for author */}
-      <input
-        type="text"
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
       />
 
       <button type="submit">Create Post</button>
@@ -88,7 +82,6 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
-
 /*
 function CreatePost() {
   return (

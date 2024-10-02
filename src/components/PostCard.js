@@ -19,10 +19,14 @@ const BlogCard = ({
       <div className="content">
         <h2>{title}</h2>
         <div className="author-info">
-          {authorImage && <img src={authorImage} alt={author} />}
+          {authorImage && (
+            <img src={authorImage} alt={author.name || "Unknown Author"} />
+          )}{" "}
+          {/* author.name */}
           <p>
-            by <strong>{author || "Unknown Author"}</strong> on{" "}
-            {new Date(date).toLocaleDateString()}
+            by <strong>{author ? author.name : "Unknown Author"}</strong>{" "}
+            {/* author.name */}
+            on {new Date(date).toLocaleDateString()}
           </p>
         </div>
         <p>{description}</p>
@@ -43,7 +47,6 @@ const BlogCard = ({
     </div>
   );
 };
-
 /*
 function PostCard({ title }) {
   return (

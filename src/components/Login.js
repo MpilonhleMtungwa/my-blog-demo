@@ -4,16 +4,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (email, password) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -22,14 +18,15 @@ const Login = () => {
           password,
         }
       );
+      const token = response.data.token;
 
-      // Save the token to localStorage or state
-      localStorage.setItem("token", response.data.token);
+      // Save token to localStorage
+      localStorage.setItem("token", token);
 
-      // Redirect to create post page
+      // Redirect or update UI based on successful login
       navigate("/createpost"); // useNavigate() hook from react-router-dom
     } catch (error) {
-      console.error("Login error", error);
+      console.error("Login failed:", error);
     }
   };
 
@@ -37,7 +34,12 @@ const Login = () => {
     <div className="form-container">
       <div className="form-wrapper">
         <h2>Login</h2>
-        <form onSubmit={handleLogin}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin(email, password);
+          }}
+        >
           <div className="form-group">
             <label>Email</label>
             <input
@@ -60,8 +62,7 @@ const Login = () => {
             Login
           </button>
           {/* Display error or success message */}
-          {error && <p className="error-msg">{error}</p>}
-          {success && <p className="success-msg">{success}</p>}
+
           <p className="register-link">
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
@@ -148,4 +149,4 @@ const Login = ({ setToken }) => {
   );
 };
 */
-export default Login;
+export default LoginForm;

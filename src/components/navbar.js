@@ -23,7 +23,7 @@ const Navbar = () => {
             <Link to="/createpost">Create Blog</Link>
           </li>
           <li>
-            <a href="#">Feeds</a>
+            <Link to="/myblogs">My Blogs</Link>
           </li>
           <li>
             <a href="#">Search</a>

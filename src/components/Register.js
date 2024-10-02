@@ -194,19 +194,31 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Sending POST request to register the user
       await axios.post("http://localhost:5000/api/auth/register", {
         name,
         email,
         password,
       });
+
+      // If registration is successful, show success message
       setSuccess("Registration successful! You can now log in.");
       setError("");
+
+      // Optionally, clear the form fields after successful registration
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
-      setError("Error during registration");
+      // Handle different error responses from the server
+      if (err.response && err.response.data.msg) {
+        setError(err.response.data.msg); // Display the error message from the server
+      } else {
+        setError("Error during registration. Please try again.");
+      }
       setSuccess("");
     }
   };
-
   return (
     <div className="form-container">
       <div className="register-card">

@@ -8,31 +8,36 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Start with loading = true
 
+  // Function to fetch user data based on token
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.get("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data); // Set the fetched user data
+      setLoading(false); // Finished loading
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+      // If the token is invalid or user is not found, clear the token
+      setToken(null);
+      localStorage.removeItem("token");
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("token"); // Ensure token is retrieved here
-
-        if (!token) {
-          console.error("No token found, authorization denied.");
-          return;
-        }
-
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Make sure the token is sent correctly
-          },
-        });
-
-        setUser(response.data); // Assuming this line sets user data
-        console.log("User data:", response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
     if (token) {
-      fetchUserData();
+      fetchUserData(); // Fetch user data when token exists
+    } else {
+      setLoading(false); // No token, set loading to false
     }
   }, [token]);
 

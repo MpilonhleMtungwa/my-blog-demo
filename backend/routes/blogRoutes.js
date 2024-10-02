@@ -22,8 +22,19 @@ module.exports = router;
 // routes/blogRoutes.js
 const express = require("express");
 const router = express.Router();
-const Blog = require("../models/Blog");
+const { protect } = require("../middleware/authMiddleware");
+const blogController = require("../controllers/blogController"); // Ensure the correct path to the controller
 
+// Define your routes
+router.post("/create", protect, blogController.createBlog);
+router.get("/", blogController.getBlogs);
+router.get("/myblogs", protect, blogController.getMyBlogs);
+router.get("/:id", blogController.getBlogById);
+router.put("/:id", protect, blogController.updateBlog);
+router.delete("/:id", blogController.deleteBlog);
+
+// Fetch all blogs
+/*
 router.get("/", async (req, res) => {
   try {
     const blogs = await Blog.find();
@@ -33,51 +44,87 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+// Create a new blog post
+router.post("/create", protect, async (req, res) => {
+  console.log("Creating a new blog. User:", req.user);
+  try {
+    const newBlog = new Blog({
+      title: req.body.title,
+      content: req.body.content,
+      author: req.user._id, // Using the user's name from the protect middleware
+
+      image: req.body.image,
+      description: req.body.description,
+    });
+
+    const savedBlog = await newBlog.save();
+    res.status(201).json(savedBlog);
+  } catch (error) {
+    console.error("Error creating blog post:", error);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
+// Fetch user's blogs
+router.get("/myblogs", protect, async (req, res) => {
+  try {
+    const blogs = await Blog.find({ authorId: req.user._id });
+    res.json(blogs);
+  } catch (err) {
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
+
+// Update a blog
+router.put("/:id", protect, async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
-
     if (!blog) {
       return res.status(404).json({ msg: "Blog not found" });
     }
 
-    res.json(blog);
-  } catch (err) {
-    console.error(err.message);
-
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Blog not found" });
+    // Ensure the logged-in user is the author
+    if (blog.authorId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ msg: "Not authorized to edit this blog" });
     }
 
-    res.status(500).send("Server error");
-  }
-});
+    // Update the blog fields with the new data from the request body
+    blog.title = req.body.title || blog.title;
+    blog.description = req.body.description || blog.description;
+    blog.content = req.body.content || blog.content;
 
-// Fetch all blogs
-router.get("/blogs", async (req, res) => {
-  try {
-    const blogs = await Blog.find();
-    res.status(200).json(blogs);
+    await blog.save();
+    res.json(blog);
   } catch (err) {
-    res.status(500).json({ message: "Error fetching blogs" });
+    res.status(500).json({ msg: "Server Error" });
   }
 });
 
-// Create a new blog post
-router.post("/add", async (req, res) => {
-  const { title, content, author, image, description } = req.body;
-
-  if (!title || !content || !author || !description) {
-    return res.status(400).json({ msg: "All fields are required" });
-  }
-
+// Fetch all blogs for a specific user (duplicate, could be removed)
+router.get("/user-blogs", protect, async (req, res) => {
   try {
+    const blogs = await Blog.find({ authorId: req.user._id });
+    res.json(blogs);
+  } catch (error) {
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+*/
+module.exports = router;
+
+/*
+router.post("/add", async (req, res) => {
+  try {
+    const { title, content, author, image, description } = req.body;
+    console.log("User from req.user:", req.user); // Add a log here
+
     const newBlog = new Blog({
       title,
       content,
       author,
       image,
       description,
+      authorId: req.user._id,
     });
 
     const blog = await newBlog.save();
@@ -87,4 +134,4 @@ router.post("/add", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-module.exports = router;
+*/

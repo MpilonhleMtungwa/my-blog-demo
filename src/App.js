@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/header";
 import Navbar from "./components/navbar";
 import Sidebar from "./components/Sidebar";
-import MainContent from "./components/MainContent";
+
 import PopularPosts from "./components/PopularPosts";
 import PostCard from "./components/PostCard";
 import BlogList from "./components/BlogList";
@@ -14,6 +14,8 @@ import BlogDetail from "./components/BlogDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./components/CreatePost";
 import PrivateRoute from "./components/PrivateRoute";
+import MyBlogs from "./components/MyBlogs";
+import EditBlog from "./components/EditBlogs";
 
 /*
 const blogContent = `
@@ -63,6 +65,8 @@ function App() {
         <Route path="/bloglist" element={<BlogList />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/myblogs" element={<MyBlogs />} />
+        <Route path="/editblog/:id" element={<EditBlog />} />
         <Route
           path="/createpost"
           element={

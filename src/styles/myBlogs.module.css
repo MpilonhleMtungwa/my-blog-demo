@@ -1,0 +1,15 @@
+src/styles/myBlogs.module.css .myBlogsContainer {
+  padding: 20px;
+}
+
+.blogItem {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.viewBtn,
+.editBtn,
+.deleteBtn {
+  margin-right: 10px;
+}

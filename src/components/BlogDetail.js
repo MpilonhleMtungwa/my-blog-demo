@@ -81,7 +81,10 @@ const BlogDetail = ({ match }) => {
 
       {/* Author and Date */}
       <div className={styles.authorInfo}>
-        <span className={styles.author}>By {blog.author}</span>
+        <span className={styles.author}>
+          By {blog.author ? blog.author.name : "Unknown Author"}
+        </span>{" "}
+        {/* Access author.name */}
         <span className={styles.date}>
           {new Date(blog.date).toLocaleDateString()} {/* Format date */}
         </span>
@@ -100,6 +103,8 @@ const BlogDetail = ({ match }) => {
         <span className={styles.icon}>👎</span>
         <span className={styles.icon}>💬</span>
       </div>
+
+      {/* Comment Section */}
       <CommentSection postId={id} />
     </div>
   );
