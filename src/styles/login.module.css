@@ -1,0 +1,114 @@
+.form-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Full viewport height */
+  background-color: #f0f2f5; /* Light background color */
+  padding: 20px;
+}
+
+.form-wrapper {
+  background-color: #ffffff; /* White background for form */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 40px; /* Padding around the form */
+  width: 100%;
+  max-width: 400px; /* Maximum width for larger screens */
+  text-align: center; /* Center text inside the wrapper */
+}
+
+h2 {
+  margin-bottom: 20px; /* Space below heading */
+  color: #333; /* Dark gray color for the heading */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Space between form groups */
+  text-align: left; /* Align label to the left */
+}
+
+label {
+  display: block; /* Make label block-level for full width */
+  margin-bottom: 5px; /* Space below label */
+  font-weight: bold; /* Bold labels */
+  color: #555; /* Darker color for labels */
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%; /* Full width inputs */
+  padding: 10px; /* Padding inside inputs */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 1rem; /* Font size for inputs */
+  transition: border-color 0.3s; /* Smooth transition on focus */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove outline */
+}
+
+.login-btn {
+  width: 100%; /* Full width button */
+  padding: 10px; /* Padding inside button */
+  background-color: #007bff; /* Blue background color */
+  color: #ffffff; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 1rem; /* Font size for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.login-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.register-link {
+  margin-top: 15px; /* Space above the register link */
+  font-size: 0.9rem; /* Smaller font size */
+}
+
+footer {
+  margin-top: 20px; /* Space above footer */
+  font-size: 0.8rem; /* Smaller font size */
+  color: #777; /* Light gray color */
+}
+
+@media (max-width: 600px) {
+  .form-wrapper {
+    padding: 30px; /* Adjust padding on smaller screens */
+  }
+
+  h2 {
+    font-size: 1.6rem; /* Smaller font size for headings */
+  }
+
+  input[type="email"],
+  input[type="password"],
+  .login-btn {
+    font-size: 0.9rem; /* Adjust font size for inputs and button */
+  }
+
+  .register-link {
+    font-size: 0.8rem; /* Smaller font size for register link */
+  }
+}
+
+@media (max-width: 400px) {
+  .form-wrapper {
+    padding: 20px; /* Less padding for very small screens */
+  }
+
+  h2 {
+    font-size: 1.4rem; /* Even smaller font size for headings */
+  }
+
+  input[type="email"],
+  input[type="password"],
+  .login-btn {
+    font-size: 0.85rem; /* Adjust font size for inputs and button */
+  }
+}

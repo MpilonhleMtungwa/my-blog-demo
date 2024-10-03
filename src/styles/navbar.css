@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-
+  overflow: visible;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,19 +10,6 @@
   background-color: #fff; /* Background color to match your design */
   z-index: 1000; /* Ensure the navbar is on top of other content */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
-  /*
-  position: fixed;
-  top: 0;
-  right: 1%;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e5e5e5;
-  */
 }
 
 .navbar-logo {
@@ -61,4 +48,48 @@
 
 .navbar-links a:hover {
   color: #000;
+}
+
+.hamburger {
+  display: none; /* Initially hidden */
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Show hamburger on small screens */
+  }
+
+  .navbar-links {
+    display: none; /* Hide navbar links on small screens */
+  }
+
+  .navbar-links.open {
+    display: block;
+    position: absolute;
+    top: 60px; /* Adjust based on your navbar height */
+    right: 10px;
+    width: 200px;
+    left: 0; /* Aligns to the left */
+    background-color: white;
+    width: 100%; /* Full width dropdown */
+    text-align: left; /* Align links to the left */
+    padding-left: 20px; /* Add some padding if needed */
+  }
+
+  .navbar-links li {
+    display: block; /* Display the links as blocks so they appear vertically */
+    margin-bottom: 10px; /* Add some spacing between each link */
+  }
+
+  .navbar-links a {
+    text-decoration: none;
+    color: #007bff; /* Color of links */
+    font-size: 1.2rem; /* Adjust font size */
+  }
+
+  .navbar-links a:hover {
+    color: #0056b3; /* Hover effect */
+  }
 }

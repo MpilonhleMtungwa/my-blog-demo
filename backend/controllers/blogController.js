@@ -2,7 +2,7 @@ const Blog = require("../models/Blog");
 const Post = require("../models/Post");
 const User = require("../models/User");
 
-// Create new blog post
+
 // Create a new blog post
 exports.createBlog = async (req, res) => {
   try {
@@ -24,7 +24,7 @@ exports.createBlog = async (req, res) => {
     });
 
     await newBlog.save();
-    res.status(201).json(newBlog); // Return the newly created blog post
+    res.status(201).json(newBlog); 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -67,7 +67,7 @@ exports.getMyBlogs = async (req, res) => {
   }
 };
 
-// Update a blog post (only author can update)
+// Update a blog post 
 exports.updateBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -75,7 +75,7 @@ exports.updateBlog = async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // Ensure only the author or an admin can update the blog
+    // only the author or an admin can update the blog
     if (blog.author.equals(req.user._id)) {
       // Using `equals` to compare ObjectIds
       const { title, content, description } = req.body;
@@ -126,7 +126,7 @@ exports.updateBlog = async (req, res) => {
   }
 };
 */
-// Delete a blog post (only author can delete)
+// Delete a blog post 
 exports.deleteBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);

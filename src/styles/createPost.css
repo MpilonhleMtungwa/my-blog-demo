@@ -22,7 +22,7 @@ h2 {
 /* Input and textarea styling */
 input[type="text"],
 textarea {
-  width: 100%;
+  width: 85%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -44,7 +44,7 @@ textarea {
 
 /* Error message styling */
 p {
-  color: red;
+  color: rgb(29, 28, 28);
   font-size: 0.9rem;
   text-align: center;
 }
@@ -66,8 +66,46 @@ button[type="submit"]:hover {
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   form {
+    margin: 30px auto;
     padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  button[type="submit"] {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  button[type="submit"] {
+    padding: 6px;
+    font-size: 0.8rem;
   }
 }

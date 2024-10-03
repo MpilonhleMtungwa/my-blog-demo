@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css"; // Import your CSS for styling
 import mylogo from "../pictures/iconnav.png";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -15,18 +20,18 @@ const Navbar = () => {
           />
           <span>Blogue</span>
         </div>
-        <ul className="navbar-links">
+        <div className="hamburger" onClick={toggleMenu}>
+          ☰
+        </div>
+        <ul className={`navbar-links ${isOpen ? "open" : ""}`}>
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/createpost">Create Blog</Link>
           </li>
           <li>
             <Link to="/myblogs">My Blogs</Link>
-          </li>
-          <li>
-            <a href="#">Search</a>
           </li>
           <li>
             <Link to="/login">Sign In</Link>

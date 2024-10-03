@@ -97,7 +97,7 @@ const BlogDetail = ({ match }) => {
         ))}
       </div>
 
-      {/* Interactive Icons */}
+      {/* Interactive Icons. still need to be responsive */}
       <div className={styles.interactions}>
         <span className={styles.icon}>👍</span>
         <span className={styles.icon}>👎</span>

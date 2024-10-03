@@ -47,24 +47,6 @@ const BlogList = () => {
 };
 
 /*
-  return (
-    <div className="blog-list">
-      {blogPosts.map((post, index) => (
-        <PostCard
-          key={index}
-          title={post.title}
-          author={post.author}
-          date={post.createdAt} // Assuming `createdAt` is in your MongoDB schema
-          description={post.content} // Assuming `content` is the field for blog content
-          image={post.imageUrl} // Assuming `imageUrl` is where you store image links
-          tags={post.tags || []} // Assuming `tags` is an array
-        />
-      ))}
-    </div>
-  );
-};
-*/
-/*
 const BlogList = () => {
   const [blogPosts, setBlogPosts] = useState([]); // State to store API data
   const [loading, setLoading] = useState(true); // State to show loading indicator

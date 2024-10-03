@@ -23,9 +23,9 @@ module.exports = router;
 const express = require("express");
 const router = express.Router();
 const { protect } = require("../middleware/authMiddleware");
-const blogController = require("../controllers/blogController"); // Ensure the correct path to the controller
+const blogController = require("../controllers/blogController"); 
 
-// Define your routes
+// Define routes
 router.post("/create", protect, blogController.createBlog);
 router.get("/", blogController.getBlogs);
 router.get("/myblogs", protect, blogController.getMyBlogs);
@@ -33,7 +33,7 @@ router.get("/:id", blogController.getBlogById);
 router.put("/:id", protect, blogController.updateBlog);
 router.delete("/:id", protect, blogController.deleteBlog);
 
-// Fetch all blogs
+
 /*
 router.get("/", async (req, res) => {
   try {

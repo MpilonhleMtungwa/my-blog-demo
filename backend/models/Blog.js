@@ -16,12 +16,12 @@ const blogSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String, // URL to the image
+    type: String, 
     required: false,
     default: "https://images.pexels.com/photos/265667/pexels-photo-265667.jpeg",
   },
   description: {
-    // New field for the blog description
+    
     type: String,
     required: true,
   },

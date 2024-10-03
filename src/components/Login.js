@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/login.css";
+import styles from "../styles/login.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -31,8 +31,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-wrapper">
+    <div className={styles.formContainer}>
+      <div className={styles.formWrapper}>
         <h2>Login</h2>
         <form
           onSubmit={(e) => {
@@ -40,7 +40,7 @@ const LoginForm = () => {
             handleLogin(email, password);
           }}
         >
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Email</label>
             <input
               type="email"
@@ -49,7 +49,7 @@ const LoginForm = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>Password</label>
             <input
               type="password"
@@ -58,22 +58,14 @@ const LoginForm = () => {
               required
             />
           </div>
-          <button type="submit" className="login-btn">
+          <button type="submit" className={styles.loginBtn}>
             Login
           </button>
-          {/* Display error or success message */}
-
-          <p className="register-link">
+          <p className={styles.registerLink}>
             Don't have an account? <Link to="/register">Register here</Link>
           </p>
           <footer>
             <p>Copyright © 2024. All rights reserved.</p>
-            <div className="social-icons">
-              <a href="#">Facebook</a>
-              <a href="#">Twitter</a>
-              <a href="#">Google</a>
-              <a href="#">LinkedIn</a>
-            </div>
           </footer>
         </form>
       </div>

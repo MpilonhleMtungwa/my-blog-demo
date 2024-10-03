@@ -10,7 +10,7 @@
 }
 
 .blog-card img {
-  max-height: 300px; /* Maximum height */
+  max-height: 200px; /* Maximum height */
   width: 100%; /* Image takes full width of its container */
   object-fit: cover;
 }
