@@ -23,8 +23,8 @@ const LoginForm = () => {
       // Save token to localStorage
       localStorage.setItem("token", token);
 
-      // Redirect or update UI based on successful login
-      navigate("/createpost"); // useNavigate() hook from react-router-dom
+      
+      navigate("/createpost"); 
     } catch (error) {
       console.error("Login failed:", error);
     }

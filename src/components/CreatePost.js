@@ -1,8 +1,7 @@
 import "../styles/createPost.css";
 import { useState, useContext } from "react";
 import axios from "axios";
-import AuthContext from "../context/authContext"; // Assuming you have AuthContext for auth management
-
+import AuthContext from "../context/authContext";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -10,8 +9,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const { token } = useContext(AuthContext); // Assuming you're using AuthContext to manage auth
-
+  const { token } = useContext(AuthContext);
   const handleCreatePost = async (event) => {
     event.preventDefault(); // Prevents the form from submitting and reloading the page
 

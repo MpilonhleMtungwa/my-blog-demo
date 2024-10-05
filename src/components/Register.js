@@ -205,7 +205,7 @@ const Register = () => {
       setSuccess("Registration successful! You can now log in.");
       setError("");
 
-      // Optionally, clear the form fields after successful registration
+      // clear the form fields after successful registration
       setName("");
       setEmail("");
       setPassword("");

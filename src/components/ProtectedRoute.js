@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import AuthContext from "../context/authContext"; // Import the AuthContext (adjust the path if needed)
+import AuthContext from "../context/authContext";
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = !!localStorage.getItem("token"); // Check for token

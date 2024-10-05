@@ -31,7 +31,7 @@ const BlogCard = ({
         </div>
         <p>{description}</p>
 
-        {/* Use Link for navigation to blog detail page */}
+        
         <Link to={`/blogs/${id}`} className="read-more">
           Read More →
         </Link>

@@ -2,9 +2,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import AuthContext from "../context/authContext"; // Adjust path if needed
-import styles from "../styles/editBlog.module.css"; // Optional CSS module
-
+import AuthContext from "../context/authContext";
+import styles from "../styles/editBlog.module.css";
 const EditBlog = () => {
   const { id } = useParams(); // Get blog ID from URL
   const { token } = useContext(AuthContext); // Get token from AuthContext
@@ -46,7 +45,7 @@ const EditBlog = () => {
           },
         }
       );
-      navigate("/myblogs"); // Redirect to "My Blogs" page after successful update
+      navigate("/myblogs"); 
     } catch (err) {
       setError(err.response?.data?.msg || "Error updating the blog");
     }

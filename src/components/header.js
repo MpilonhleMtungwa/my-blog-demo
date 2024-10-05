@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/header.css"; // Import your CSS for styling
+import "../styles/header.css";
 import myImage from "../pictures/headerpic.jpg";
 
 const Header = () => {

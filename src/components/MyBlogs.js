@@ -1,12 +1,12 @@
 // src/components/MyBlogs.js
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import AuthContext from "../context/authContext"; // Ensure the correct path
+import AuthContext from "../context/authContext"; 
 import { Link } from "react-router-dom";
-import styles from "../styles/myBlogs.module.css"; // Optional CSS module
+import styles from "../styles/myBlogs.module.css"; 
 
 const MyBlogs = () => {
-  const { token } = useContext(AuthContext); // Get token from AuthContext
+  const { token } = useContext(AuthContext); 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -61,7 +61,7 @@ const MyBlogs = () => {
 
       const data = await response.json();
       console.log("Blog deleted successfully", data);
-      // Refresh the blog list or update UI here
+      
     } catch (error) {
       console.error("Error deleting blog:", error);
     }
