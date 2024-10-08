@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/navbar.css"; 
+import "../styles/navbar.css";
 import mylogo from "../pictures/iconnav.png";
 
 const Navbar = () => {
@@ -18,7 +18,7 @@ const Navbar = () => {
             alt="Logo"
             href="https://icons8.com/icon/13651/google-blog-search"
           />
-          <span>Blogue</span>
+          <span>Blog It</span>
         </div>
         <div className="hamburger" onClick={toggleMenu}>
           ☰
