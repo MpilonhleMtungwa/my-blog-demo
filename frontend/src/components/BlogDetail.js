@@ -51,7 +51,7 @@ const BlogDetail = ({ match }) => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/blogs/${id}`
+          `https://my-blog-9i38.onrender.com/api/blogs/${id}`
         );
         setBlog(response.data); // Set the blog data
         setLoading(false);

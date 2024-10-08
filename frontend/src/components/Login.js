@@ -12,7 +12,7 @@ const LoginForm = () => {
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://my-blog-9i38.onrender.com/api/auth/login",
         {
           email,
           password,
@@ -23,8 +23,7 @@ const LoginForm = () => {
       // Save token to localStorage
       localStorage.setItem("token", token);
 
-      
-      navigate("/createpost"); 
+      navigate("/createpost");
     } catch (error) {
       console.error("Login failed:", error);
     }

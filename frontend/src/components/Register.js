@@ -195,7 +195,7 @@ const Register = () => {
     e.preventDefault();
     try {
       // Sending POST request to register the user
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post("https://my-blog-9i38.onrender.com/api/auth/register", {
         name,
         email,
         password,

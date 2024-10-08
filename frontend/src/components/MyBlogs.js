@@ -1,12 +1,12 @@
 // src/components/MyBlogs.js
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import AuthContext from "../context/authContext"; 
+import AuthContext from "../context/authContext";
 import { Link } from "react-router-dom";
-import styles from "../styles/myBlogs.module.css"; 
+import styles from "../styles/myBlogs.module.css";
 
 const MyBlogs = () => {
-  const { token } = useContext(AuthContext); 
+  const { token } = useContext(AuthContext);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ const MyBlogs = () => {
     const fetchMyBlogs = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/blogs/myblogs",
+          "https://my-blog-9i38.onrender.com/api/blogs/myblogs",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -61,7 +61,6 @@ const MyBlogs = () => {
 
       const data = await response.json();
       console.log("Blog deleted successfully", data);
-      
     } catch (error) {
       console.error("Error deleting blog:", error);
     }

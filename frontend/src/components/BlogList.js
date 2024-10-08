@@ -9,7 +9,7 @@ const BlogList = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/blogs");
+        const response = await axios.get("https://my-blog-9i38.onrender.com/api/blogs");
         setBlogs(response.data);
       } catch (err) {
         setError("Error fetching blogs");

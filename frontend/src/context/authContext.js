@@ -17,11 +17,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://my-blog-9i38.onrender.com/api/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUser(response.data); // Set the fetched user data
       setLoading(false); // Finished loading
     } catch (err) {

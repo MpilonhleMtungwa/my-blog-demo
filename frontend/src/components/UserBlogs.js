@@ -11,7 +11,7 @@ const UserBlogs = () => {
     const fetchUserBlogs = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/blogs/user-blogs",
+          "https://my-blog-9i38.onrender.com/api/blogs/user-blogs",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

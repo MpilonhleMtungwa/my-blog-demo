@@ -16,7 +16,7 @@ const EditBlog = () => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/blogs/${id}`
+          `https://my-blog-9i38.onrender.com/api/blogs/${id}`
         );
         setBlog(response.data);
         setLoading(false);
@@ -45,7 +45,7 @@ const EditBlog = () => {
           },
         }
       );
-      navigate("/myblogs"); 
+      navigate("/myblogs");
     } catch (err) {
       setError(err.response?.data?.msg || "Error updating the blog");
     }
