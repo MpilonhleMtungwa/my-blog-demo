@@ -132,6 +132,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+app.use(cors({ origin: "https://my-blog-demo.onrender.com" }));
+/*
 app.use(
   cors({
     origin: "http://localhost:3000", // or your frontend domain
@@ -139,6 +141,7 @@ app.use(
     allowedHeaders: "Content-Type,Authorization",
   })
 );
+*/
 app.use(express.json());
 
 // Routes
