@@ -9,7 +9,9 @@ const CommentSection = ({ postId }) => {
   // Fetch comments for the blog post
   useEffect(() => {
     const fetchComments = async () => {
-      const response = await axios.get(`/api/comments/${postId}`);
+      const response = await axios.get(
+        `https://my-blog-9i38.onrender.com/api/comments/${postId}`
+      );
       setComments(response.data);
     };
     fetchComments();
@@ -19,9 +21,12 @@ const CommentSection = ({ postId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/comments/add", { postId, name, comment });
+      await axios.post("https://my-blog-9i38.onrender.com/api/comments/add", {
+        postId,
+        name,
+        comment,
+      });
       setComment(""); // Clear the comment input after submission
-      // Optionally refetch comments or push to state
     } catch (error) {
       console.error("Error adding comment", error);
     }

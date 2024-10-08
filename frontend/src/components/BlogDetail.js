@@ -63,7 +63,6 @@ const BlogDetail = ({ match }) => {
     };
 
     fetchBlog();
-    console.log("Blog ID:", id);
   }, [id]);
 
   if (loading) {
